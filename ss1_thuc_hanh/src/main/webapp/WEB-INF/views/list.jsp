@@ -21,6 +21,7 @@
         <th>Email</th>
         <th>Address</th>
         <th>Remove</th>
+        <th>Edit</th>
     </tr>
     <c:forEach items="${customerList}" var="c">
         <tr>
@@ -29,6 +30,7 @@
             <td>${c.email}</td>
             <td>${c.address}</td>
             <td><a href="/customer/delete?id=${c.id}">Xoá</a> </td>
+            <td><a href="/customer/edit?id=${c.id}">Sửa</a> </td>
         </tr>
     </c:forEach>
     </table>

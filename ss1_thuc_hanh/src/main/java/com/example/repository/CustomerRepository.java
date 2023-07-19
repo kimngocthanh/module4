@@ -29,4 +29,18 @@ public class CustomerRepository implements ICustomerRepository{
     public void deleteCustomer(int id) {
         customerList.remove(id);
     }
+
+    @Override
+    public void editCustomer(int id, Customer customer) {
+        customerList.set(id,customer);
+    }
+
+    @Override
+    public Customer customer(int id) {
+        for (Customer c: customerList) {
+            if(id==c.getId()){
+                return c;
+            }
+        }return null;
+    }
 }

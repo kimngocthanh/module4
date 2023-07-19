@@ -37,15 +37,33 @@ public class CustomerController {
         model.addAttribute("customerList", customerList);
         return "/list";
     }
+
     @GetMapping("/customer/delete")
-    public String showDelete(@RequestParam int id,Model model){
-        model.addAttribute("id",id);
+    public String showDelete(@RequestParam int id, Model model) {
+        model.addAttribute("id", id);
         return "/delete";
     }
 
     @PostMapping("/customer/delete")
     public String remove(@RequestParam int id, Model model) {
         customerService.deleteCustomer(id);
+        List<Customer> customerList = customerService.displayCustomer();
+        model.addAttribute("customerList", customerList);
+        return "/list";
+    }
+
+    @GetMapping("/customer/edit")
+    public String showEdit(@RequestParam int id, Model model) {
+        Customer customer = customerService.customer(id);
+        model.addAttribute("customer",customer);
+        model.addAttribute("id", id);
+        return "/edit";
+    }
+
+    @PostMapping("/customer/edit")
+    public String edit(@RequestParam int id, @RequestParam String name, @RequestParam String email, @RequestParam String address, Model model) {
+        Customer customer = new Customer(id, name, email, address);
+        customerService.editCustomer(id, customer);
         List<Customer> customerList = customerService.displayCustomer();
         model.addAttribute("customerList", customerList);
         return "/list";
