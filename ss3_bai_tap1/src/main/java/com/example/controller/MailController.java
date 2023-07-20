@@ -35,27 +35,18 @@ public class MailController {
         return "/list";
     }
 
-//    @ModelAttribute("example")
-//    public Mail getMail() {
-//        return new Mail();
-//    }
 
     @GetMapping("/mail/edit")
     public String showEdit(int id, Model model) {
         Mail mail = mailService.mail(id);
-//        ModelAndView modelAndView=new ModelAndView("/edit");
-//        model.addAttribute("editMail",mail);
         model.addAttribute("mail", mail);
         model.addAttribute("id", id);
-//        modelAndView.addObject("mail",mail);
-//        modelAndView.addObject("id",id);
         return "/edit";
     }
 
     @PostMapping("/mail/edit")
-    public String edit(@ModelAttribute Mail mail, RedirectAttributes redirectAttributes) {
+    public String edit(@ModelAttribute Mail mail) {
         mailService.updateMail(mail.getId(), mail);
-        redirectAttributes.addFlashAttribute("msg","Update ");
         return "redirect:/mail/list";
     }
 }

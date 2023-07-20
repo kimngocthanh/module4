@@ -23,7 +23,7 @@
     <form:checkbox path="spamsFiller"/>
     <br>
     Signature
-    <form:input path="signature"/>
+    <form:textarea path="signature"/>
     <form:button>update</form:button>
 </form:form>
 </body>
