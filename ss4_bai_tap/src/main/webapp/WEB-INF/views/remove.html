@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/product/removeProduct(id=${idRemove})}" th:object="${productRemove}" method="post">
+    Are you sure you to delete
+    Name :
+    <span th:text="${productRemove.name}"></span>
+    <br>
+    Price :
+    <span th:text="${productRemove.price}"></span>
+    <br>
+    Describe :
+    <span th:text="${productRemove.describe}"></span>
+    <br>
+    Producer :
+    <span th:text="${productRemove.producer}"></span>
+    <br>
+    <button>Remove</button>
+</form>
+<a th:href="@{/product/list}">Back List</a>
+</body>
+</html>
