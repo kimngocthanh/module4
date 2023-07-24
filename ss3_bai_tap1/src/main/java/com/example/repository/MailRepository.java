@@ -22,7 +22,12 @@ public class MailRepository implements IMailRepository{
 
     @Override
     public void updateMail(int id, Mail mail) {
-        mailList.set(id,mail);
+        for (int i = 0; i < mailList.size(); i++) {
+            if(id==mailList.get(i).getId()){
+                mailList.set(id,mail);
+            }
+        }
+
     }
 
     @Override
