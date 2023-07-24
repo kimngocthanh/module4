@@ -1,25 +1,32 @@
 package com.example.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private double price;
+    @Column(name = "price")
+    private Long price;
+    @Column(name = "description")
     private String describe;
+    @Column(name = "producer")
     private String producer;
 
     public Product() {
     }
 
-    public Product(String name, double price, String describe, String producer) {
+    public Product(String name, Long price, String describe, String producer) {
         this.name = name;
         this.price = price;
         this.describe = describe;
         this.producer = producer;
     }
 
-    public Product(int id, String name, double price, String describe, String producer) {
+    public Product(int id, String name, Long price, String describe, String producer) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -43,11 +50,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -65,18 +72,5 @@ public class Product {
 
     public void setProducer(String producer) {
         this.producer = producer;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return id == product.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

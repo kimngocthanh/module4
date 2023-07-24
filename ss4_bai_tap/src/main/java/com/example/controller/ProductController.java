@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -32,16 +33,17 @@ public class ProductController {
     }
 
     @PostMapping("/product/createProduct")
-    public String create(Product product) {
-        List<Product> productList = productService.display();
-        int idProduct = 0;
-        for (Product p : productList) {
-            if (idProduct <= p.getId()) {
-                idProduct = p.getId()+1;
-            }
-        }
-        Product product1 = new Product(idProduct, product.getName(), product.getPrice(), product.getDescribe(), product.getProducer());
-        productService.addProduct(product1);
+    public String create(Product product, RedirectAttributes redirectAttributes) {
+        //List<Product> productList = productService.display();
+//        int idProduct = 0;
+//        for (Product p : productList) {
+//            if (idProduct <= p.getId()) {
+//                idProduct = p.getId()+1;
+//            }
+//        }
+//        Product product1 = new Product(idProduct, product.getName(), product.getPrice(), product.getDescribe(), product.getProducer());
+        redirectAttributes.addFlashAttribute("mess","Thêm mới thành công");
+        productService.addProduct(product);
         return "redirect:/product/list";
     }
 
@@ -54,8 +56,9 @@ public class ProductController {
     }
 
     @PostMapping("product/removeProduct")
-    public String remove(@RequestParam int id) {
+    public String remove(@RequestParam int id,RedirectAttributes redirectAttributes) {
         productService.remove(id);
+        redirectAttributes.addFlashAttribute("mess","Xoá thành công");
         return "redirect:/product/list";
     }
 
@@ -68,8 +71,9 @@ public class ProductController {
     }
 
     @PostMapping("/product/editProduct")
-    public String edit(Product product) {
+    public String edit(Product product, RedirectAttributes redirectAttributes) {
         productService.edit(product.getId(),product);
+        redirectAttributes.addFlashAttribute("mess","Sửa thành công");
         return "redirect:/product/list";
     }
 
