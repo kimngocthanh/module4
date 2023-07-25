@@ -35,11 +35,9 @@ public class ProductRepository implements IProductRepository {
     @Transactional
     @Override
     public void edit(int id, Product product) {
-        TypedQuery<Product> typedQuery = entityManager.createQuery("from Product ", Product.class);
-        List<Product> productList = typedQuery.getResultList();
-        for (int i = 0; i < productList.size(); i++) {
-            if (id == productList.get(i).getId()) {
-                productList.set(i, product);
+        List<Product> productList = display();
+        for (Product value : productList) {
+            if (id == value.getId()) {
                 entityManager.merge(product);
             }
         }
