@@ -9,6 +9,7 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String blogName;
+    private String blogDate;
     private String blogger;
     private String content;
     @ManyToOne
@@ -18,16 +19,18 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String blogName, String blogger, String content, TypeBlog typeBlog) {
+    public Blog(int id, String blogName, String blogDate, String blogger, String content, TypeBlog typeBlog) {
+        this.id = id;
         this.blogName = blogName;
+        this.blogDate = blogDate;
         this.blogger = blogger;
         this.content = content;
         this.typeBlog = typeBlog;
     }
 
-    public Blog(int id, String blogName, String blogger, String content, TypeBlog typeBlog) {
-        this.id = id;
+    public Blog(String blogName, String blogDate, String blogger, String content, TypeBlog typeBlog) {
         this.blogName = blogName;
+        this.blogDate = blogDate;
         this.blogger = blogger;
         this.content = content;
         this.typeBlog = typeBlog;
@@ -71,5 +74,13 @@ public class Blog {
 
     public void setTypeBlog(TypeBlog typeBlog) {
         this.typeBlog = typeBlog;
+    }
+
+    public String getBlogDate() {
+        return blogDate;
+    }
+
+    public void setBlogDate(String blogDate) {
+        this.blogDate = blogDate;
     }
 }

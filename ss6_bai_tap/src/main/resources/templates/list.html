@@ -5,27 +5,60 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<table class="table table-striped container" style="margin-top: 5rem">
-    <tr>
-        <th>Tên blog</th>
-        <th>Tác giả</th>
-        <th>Nội dung</th>
-        <th>Thể loại</th>
-        <th>Xoá</th>
-    </tr>
-    <tr th:each="s: ${blog}">
-        <td th:text="${s.getBlogName()}"></td>
-        <td th:text="${s.getBlogger()}"></td>
-        <td th:text="${s.getContent()}"></td>
-        <td th:text="${s.getTypeBlog().getNameTypeBlog()}"></td>
-        <td><input type="submit" th:action="@{/blog/remove}" th:name="id" value="xoá"></td>
-    </tr>
-</table>
-<p th:if="${mess}" th:text="${mess}"></p>
-<a th:href="@{/blog/save}" methods="get">Thêm blog</a>
-
+<div class="container">
+    <form th:action="@{/blog/list}">
+        <input type="text" th:name="searchName">
+        <input type="submit" value="Tìm kiếm">
+    </form>
+    <table class="table table-striped " style="margin-top: 5rem">
+        <tr>
+            <th>Tên blog</th>
+            <th>Tác giả</th>
+            <th>Nội dung</th>
+            <th>Ngày sản xuất</th>
+            <th>Thể loại</th>
+            <th>Chi tiết</th>
+            <th>Xoá</th>
+            <th>Cập nhật</th>
+        </tr>
+        <tr th:each="s: ${blogPage}">
+            <td th:text="${s.blogName}"></td>
+            <td th:text="${s.blogger}"></td>
+            <td th:text="${#strings.abbreviate(s.content,12)}"></td>
+            <td th:text="${s.blogDate}"></td>
+            <td th:text="${s.typeBlog.nameTypeBlog}"></td>
+            <td>
+                <button class="btn btn-danger" style="border-radius: 10px"><a
+                        th:href="@{/blog/showView(id=${s.getId()})}">Chi tiết</a></button>
+            </td>
+            <td>
+                <button class="btn btn-danger" style="border-radius: 10px"><a
+                        th:href="@{/blog/remove(id=${s.getId()})}">Xoá</a></button>
+            </td>
+            <td>
+                <button class="btn btn-warning" style="border-radius: 10px"><a
+                        th:href="@{/blog/edit(id=${s.getId()})}">Cập Nhật</a></button>
+            </td>
+        </tr>
+    </table>
+    <a th:if="${blogPage.hasPrevious()}" th:href="@{/blog/list(page=${blogPage.number-1},searchName=${searchName})}"
+       style="color: black">Prev</a>
+    <span th:text="${blogPage.number+1}"></span>/<span th:text="${blogPage.totalPages}"></span>
+    <a th:if="${blogPage.hasNext()}" th:href="@{/blog/list(page=${blogPage.number+1},searchName=${searchName})}"
+       style="color: black">Next</a>
+    <p th:if="${mess}" th:text="${mess}"></p>
+    <br>
+    <button class="btn btn-primary" style="border-radius: 10px"><a th:href="@{/blog/save}" methods="get">Thêm blog</a>
+    </button>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

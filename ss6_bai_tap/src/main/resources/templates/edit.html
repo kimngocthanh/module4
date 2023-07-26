@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/blog/save}" method="post" th:object="${blog}">
+<form th:action="@{/blog/edit}" method="post" th:object="${blog}">
+    <input type="hidden" th:field="${blog.id}">
     <table>
         <tr>
             <th>Tên blog</th>
@@ -20,10 +21,6 @@
             <td><input th:field="*{content}"></td>
         </tr>
         <tr>
-            <th>Ngày sản xuất</th>
-            <td><input th:field="*{blogDate}" type="date"></td>
-        </tr>
-        <tr>
             <th>Thể loại blog</th>
             <td><select th:field="*{typeBlog}">
                 <option value="">Chọn thể loại</option>
@@ -33,7 +30,7 @@
             </select></td>
         </tr>
     </table>
-    <button>Thêm mới</button>
+    <button>Cập nhật</button>
 </form>
 </body>
 </html>
