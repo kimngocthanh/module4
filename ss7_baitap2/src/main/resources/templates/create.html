@@ -11,8 +11,20 @@
 </head>
 <body>
 <div>
-  <form th:action="@{/song/create}" th:object="${songDto}" method="post">
-
+  <form th:action="@{/create}" th:object="${songDto}" method="post">
+      Name:
+      <input type="text" th:field="*{name}">
+      <small style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+      <br>
+      Artist:
+      <input type="text" th:field="*{artist}">
+      <small style="color: red" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}"></small>
+      <br>
+      Type Music:
+      <input type="text" th:field="*{typeMusic}">
+      <small style="color: red" th:if="${#fields.hasErrors('typeMusic')}" th:errors="*{typeMusic}"></small>
+      <br>
+      <input type="submit" value="add">
   </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

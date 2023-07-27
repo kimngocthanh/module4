@@ -42,7 +42,7 @@ public class SongController {
         BeanUtils.copyProperties(songDto, song);
         songService.add(song);
         redirectAttributes.addFlashAttribute("mess", "adđ success");
-        return "/list";
+        return "redirect:/song/list";
     }
 
 

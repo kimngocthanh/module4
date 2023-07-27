@@ -80,7 +80,7 @@ public class SongDto implements Validator {
             errors.rejectValue("typeMusic",null,"not empty");
         } else if (songDto.getTypeMusic().length() >= 1000) {
             errors.rejectValue("typeMusic",null,"Do not exceed 1000 characters");
-        } else if (songDto.getTypeMusic().matches("^[a-zA-Z,]*$")) {
+        } else if (songDto.getTypeMusic().matches("^[a-zA-Z]*$")) {
             errors.rejectValue("typeMusic",null,"Does not contain special characters like @ ; . = - + , ….");
         }
     }
