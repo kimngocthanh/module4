@@ -20,4 +20,9 @@ public class SongService implements ISongService{
     public List<Song> display() {
         return songRepository.findAll();
     }
+
+    @Override
+    public Song song(int id) {
+        return songRepository.findById(id).get();
+    }
 }

@@ -11,20 +11,21 @@
 </head>
 <body>
 <div>
-    <table class="table table-striped">
-        <tr>
-            <td>Name</td>
-            <td>Artist</td>
-            <td>TypeMusic</td>
-            <td>Edit</td>
-        </tr>
-        <tr th:each="s:${songList}">
-            <td th:text="${s.name}"></td>
-            <td th:text="${s.artist}"></td>
-            <td th:text="${s.typeMusic}"></td>
-            <td><a th:href="@{/song/edit(id=${s.id})}">Edit</a></td>
-        </tr>
-    </table>
+    <form th:action="@{/edit}" th:object="${songDto}" method="post">
+        Name:
+        <input type="text" th:field="*{name}" th:value="${songDto.name}">
+        <small style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        <br>
+        Artist:
+        <input type="text" th:field="*{artist}" th:value="${songDto.artist}">
+        <small style="color: red" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}"></small>
+        <br>
+        Type Music:
+        <input type="text" th:field="*{typeMusic}" th:value="${songDto.typeMusic}">
+        <small style="color: red" th:if="${#fields.hasErrors('typeMusic')}" th:errors="*{typeMusic}"></small>
+        <br>
+        <input type="submit" value="edit">
+    </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

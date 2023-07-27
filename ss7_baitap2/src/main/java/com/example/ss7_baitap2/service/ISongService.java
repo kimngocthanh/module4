@@ -8,4 +8,6 @@ public interface ISongService {
     void add(Song song);
 
     List<Song> display();
+
+    Song song(int id);
 }
