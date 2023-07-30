@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <form th:action="@{/addBook}" method="post" th:object="${bookDto}">
+        Tên sách:
+        <input th:field="*{name}">
+        Tác giả :
+        <input th:field="*{author}">
+        Mã sách :
+        <input th:field="*{code}">
+        <table>
+            <tr>
+                <td th:each="t,status:${typeBookList}">
+                    <input type="checkbox" th:value="${t.nameType}" th:text="${t.nameType}" th:data-p1="${status.count}" th:data-p2="${t.nameType}" th:onclick="typeBook(this.getAttribute('data-p1'),this.getAttribute('data-p2'))">
+                </td>
+            </tr>
+        </table>
+        Số lượng :
+        <input th:field="*{quantity}">
+        <input type="submit" value="submit">
+    </form>
+</div>
+
+<script>
+    let name = "";
+    function typeBook(id, nameType) {
+        let checkbox = document.getElementById(id);
+        if (checkbox.checked) {
+            name += nameType;
+        } else {
+            name -= nameType;
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+</html>

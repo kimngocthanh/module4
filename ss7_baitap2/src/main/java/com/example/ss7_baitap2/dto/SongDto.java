@@ -61,7 +61,7 @@ public class SongDto implements Validator {
     public void validate(Object target, Errors errors) {
         SongDto songDto = (SongDto) target;
         if (songDto.getName().equals("")) {
-            errors.rejectValue("name", null, "not empty");
+            errors.rejectValue("name", null, "Song not empty");
         } else if (songDto.getName().length() > 800) {
             errors.rejectValue("name", null, "Do not exceed 800 characters");
         } else if (!songDto.getName().matches("^[a-zA-Z]*$")) {
@@ -69,7 +69,7 @@ public class SongDto implements Validator {
         }
 
         if (songDto.getArtist().equals("")) {
-            errors.rejectValue("artist", null, "not empty");
+            errors.rejectValue("artist", null, "Artist not empty");
         } else if (songDto.getArtist().length() > 300) {
             errors.rejectValue("artist", null, "Do not exceed 300 characters");
         } else if (!songDto.getArtist().matches("^[a-zA-Z]*$")) {
@@ -77,7 +77,7 @@ public class SongDto implements Validator {
         }
 
         if(songDto.getTypeMusic().equals("")) {
-            errors.rejectValue("typeMusic",null,"not empty");
+            errors.rejectValue("typeMusic",null,"Type music not empty");
         } else if (songDto.getTypeMusic().length() >= 1000) {
             errors.rejectValue("typeMusic",null,"Do not exceed 1000 characters");
         } else if (songDto.getTypeMusic().matches("^[a-zA-Z]*$")) {

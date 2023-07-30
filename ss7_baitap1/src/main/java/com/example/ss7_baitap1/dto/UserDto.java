@@ -85,15 +85,15 @@ public class UserDto implements Validator {
     public void validate(Object target, Errors errors) {
         UserDto userDto = (UserDto) target;
         if (userDto.getFirstName().equals("")){
-            errors.rejectValue("firstName",null,"not empty");
+            errors.rejectValue("firstName",null,"first name not empty");
         } else if (!userDto.getFirstName().matches("^[a-zA-z]{3,45}")) {
-            errors.rejectValue("firstName",null,"not Match regex");
+            errors.rejectValue("firstName",null,"first name not Match regex");
         }
 
         if (userDto.getLastName().equals("")){
-            errors.rejectValue("lastName",null,"not empty");
+            errors.rejectValue("lastName",null,"last name not empty");
         } else if (!userDto.getLastName().matches("^[a-zA-z]{3,45}")) {
-            errors.rejectValue("lastName",null,"not Match regex");
+            errors.rejectValue("lastName",null,"last name not Match regex");
         }
 
         if (!userDto.getPhoneNumber().matches("^0[0-9]{9}$")) {
@@ -106,7 +106,7 @@ public class UserDto implements Validator {
                 errors.rejectValue("date",null, "not old enough");
             }
         } catch (Exception e) {
-            errors.rejectValue("date",null, "not format");
+            errors.rejectValue("date",null, "not format date");
         }
 
     }
