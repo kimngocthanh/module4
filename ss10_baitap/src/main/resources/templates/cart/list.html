@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport"
@@ -11,7 +11,7 @@
 </head>
 <body>
 <form th:action="@{/shop}" th:object="${cart}" method="post">
-    <h3>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h3>
+    <h3>Total Items: <span th:text="${cart.getProductDtoMap().size()}"></span></h3>
     <h3>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h3>
     <table>
         <tr>
@@ -21,7 +21,7 @@
             <th>Description</th>
             <th>Quantity</th>
         </tr>
-        <tr th:each="p:${cart.productMap}">
+        <tr th:each="p:${cart.getProductDtoMap()}">
             <td th:text="${p.getKey().name}"></td>
             <td th:src="@{${p.getKey().img}}"></td>
             <td th:text="${p.getKey().price}"></td>
@@ -35,6 +35,10 @@
         </tr>
         <tr>
             <td>Total</td>
+            <td></td>
+            <td th:text="${cart.countTotalPayment()}"></td>
+        </tr>
+        <a th:href="@{/pay}">Payment</a>
         </tr>
     </table>
 </form>

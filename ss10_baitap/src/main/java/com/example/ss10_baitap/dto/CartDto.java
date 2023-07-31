@@ -1,5 +1,7 @@
 package com.example.ss10_baitap.dto;
 
+import com.example.ss10_baitap.model.Product;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,5 +28,25 @@ public class CartDto {
         } else {
             productDtoMap.put(productDto,1);
         }
+    }
+
+    public Integer countProductQuantity() {
+        Integer productQuantity = 0;
+        for (Map.Entry<ProductDto, Integer> entry : productDtoMap.entrySet()) {
+            productQuantity += entry.getValue();
+        }
+        return productQuantity;
+    }
+
+    public Float countTotalPayment() {
+        float payment = 0;
+        for (Map.Entry<ProductDto, Integer> entry : productDtoMap.entrySet()) {
+            payment += entry.getKey().getPrice() * (float) entry.getValue();
+        }
+        return payment;
+    }
+
+    public void deleteAllItemInCard() {
+        productDtoMap.clear();
     }
 }
