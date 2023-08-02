@@ -2,10 +2,12 @@ package com.example.ss11_baitap.controller;
 
 import com.example.ss11_baitap.model.Blog;
 import com.example.ss11_baitap.model.Category;
-import com.example.ss11_baitap.repository.IBlogRepository;
 import com.example.ss11_baitap.service.IBlogService;
 import com.example.ss11_baitap.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-
 public class RestBlogController {
     @Autowired
     private IBlogService blogService;
@@ -61,5 +62,17 @@ public class RestBlogController {
         Category category = categoryService.category(id);
         List<Blog> blogList = blogService.findByName(category.getName());
         return new ResponseEntity<>(blogList,HttpStatus.OK);
+    }
+
+    @GetMapping("/api/searchByName")
+    public ResponseEntity<List<Blog>> getBlogByName(@RequestParam String name){
+        List<Blog> blogList = blogService.findByNameBlog(name);
+        return new ResponseEntity<>(blogList,HttpStatus.OK);
+    }
+    @GetMapping("/api/blogPage")
+    public ResponseEntity<Page<Blog>> getBlogPage(@RequestParam(defaultValue = "0") int page){
+        Pageable pageable = PageRequest.of(page,2);
+        Page<Blog> blogPage = blogService.getBlogPage(pageable);
+        return new ResponseEntity<>(blogPage,HttpStatus.OK);
     }
 }

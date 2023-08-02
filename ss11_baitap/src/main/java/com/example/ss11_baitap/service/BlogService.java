@@ -3,6 +3,8 @@ package com.example.ss11_baitap.service;
 import com.example.ss11_baitap.model.Blog;
 import com.example.ss11_baitap.repository.IBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +31,17 @@ public class BlogService implements IBlogService{
     }
 
     @Override
+    public List<Blog> findByNameBlog(String name) {
+        List<Blog> blogList = displayBlog();
+        List<Blog> blogs = new ArrayList<>();
+        for (Blog b: blogList) {
+            if(b.getName().contains(name)){
+                blogs.add(b);
+            }
+        }return blogs;
+    }
+
+    @Override
     public Blog blog(int id) {
         return blogRepository.findById(id).get();
     }
@@ -41,6 +54,11 @@ public class BlogService implements IBlogService{
     @Override
     public void deleteBlog(int id) {
         blogRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Blog> getBlogPage(Pageable pageable) {
+        return blogRepository.findAll(pageable);
     }
 
 
